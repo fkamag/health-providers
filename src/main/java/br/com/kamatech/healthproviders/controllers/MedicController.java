@@ -7,6 +7,7 @@ import br.com.kamatech.healthproviders.entities.Medic;
 import br.com.kamatech.healthproviders.services.MedicService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +40,6 @@ public class MedicController {
   @GetMapping("/{id}")
   public ResponseEntity<MedicDto> getMedic(@PathVariable Long id) {
     Medic medic = service.getMedicById(id);
-
-    if (medic == null) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
 
     return ResponseEntity.status(HttpStatus.OK).body(entityToDto(medic));
   }

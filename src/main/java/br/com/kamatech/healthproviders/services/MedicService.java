@@ -1,6 +1,7 @@
 package br.com.kamatech.healthproviders.services;
 
 import br.com.kamatech.healthproviders.entities.Medic;
+import br.com.kamatech.healthproviders.exceptions.MedicNotFoundException;
 import br.com.kamatech.healthproviders.repositories.MedicFakeRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,12 @@ public class MedicService {
   }
 
   public Medic getMedicById(Long id) {
-    return repository.getMedic(id);
+    Medic medic = repository.getMedic(id);
+
+    if (medic == null) {
+      throw new MedicNotFoundException();
+    }
+    return medic;
   }
 
   public Medic saveMedic(Medic medic) {
